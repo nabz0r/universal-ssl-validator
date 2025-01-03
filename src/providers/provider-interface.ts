@@ -1,0 +1,1 @@
+code de l'interface des providers

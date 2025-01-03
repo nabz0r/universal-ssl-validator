@@ -1,0 +1,1 @@
+code du provider GoDaddy
