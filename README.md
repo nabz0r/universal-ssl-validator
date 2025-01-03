@@ -51,8 +51,6 @@ Chaque couche est conçue pour être :
 - Sécurisée
 - Évolutive`
     }
-  ],
-  `owner`: `nabz0r`,
-  `branch`: `main`,
+
+`nabz0r`,
   `message`: `📚 Documentation mise à jour avec roadmap et architecture`
-}
