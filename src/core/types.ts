@@ -9,5 +9,6 @@ export interface ValidationResult {
   expirationDate: Date;
   issuer: string;
   subject: string;
+  processingTime: number;
   errors?: string[];
 }
