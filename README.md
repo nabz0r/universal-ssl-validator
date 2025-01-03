@@ -1,20 +1,26 @@
-# Universal SSL Validator
+# Universal SSL Validator 2.0
 
-Un système moderne et modulaire de validation SSL, conçu pour être extensible et performant.
+Un système moderne de validation SSL avec intelligence artificielle et monitoring énergétique intégré.
 
-## Architecture
+## Fonctionnalités Principales
 
-Le système est construit autour d'une architecture modulaire composée de :
+### Détection Proactive des Vulnérabilités par IA
+- Analyse prédictive des certificats SSL
+- Détection des anomalies et vulnérabilités
+- Recommandations automatisées
+- Apprentissage continu
 
-### Core System (Système Central)
-- Validation SSL de base
-- Gestion des plugins
-- Cache intelligent
-- Système de métriques
+### API RESTful Optimisée
+- Endpoints haute performance
+- Support multi-cloud natif
+- Compression intelligente
+- Rate limiting adaptatif
 
-### Plugins Disponibles
-- Java Keystore Plugin : Validation complète des certificats JKS et PKCS12
-- Python SSL Plugin : Validation avancée utilisant la bibliothèque SSL de Python
+### Monitoring Énergétique
+- Suivi en temps réel de la consommation
+- Optimisation automatique des ressources
+- Métriques environnementales
+- Mode éco-responsable
 
 ## Installation
 
@@ -25,26 +31,36 @@ npm install universal-ssl-validator
 ## Utilisation Rapide
 
 ```typescript
-import { UniversalSSLValidator } from 'universal-ssl-validator';
+import { SSLValidatorAPI } from 'universal-ssl-validator';
 
-const validator = new UniversalSSLValidator();
+// Initialisation de l'API
+const validator = new SSLValidatorAPI();
+validator.start(3000);
 
-// Validation simple
-const result = await validator.validateCertificate(certBuffer, 'JKS');
+// Validation avec analyse IA
+const response = await fetch('http://localhost:3000/api/v1/certificates/validate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        certificate: certData,
+        format: 'PEM'
+    })
+});
 
-// Validation de chaîne
-const chainResult = await validator.validateCertificateChain(certChainBuffers, 'PEM');
+const result = await response.json();
+console.log(result.security.recommendations);
 ```
 
-## Documentation Détaillée
-Consultez le dossier `/docs` pour la documentation complète :
-- Architecture détaillée
-- Guide des plugins
-- Spécifications techniques
-- Guide de contribution
+## Documentation
+- [Guide de l'API](docs/API.md)
+- [Documentation IA](docs/AI.md)
+- [Monitoring Énergétique](docs/ENERGY.md)
+- [Guide Multi-cloud](docs/CLOUD.md)
 
-## Contribution
-Les contributions sont les bienvenues ! Consultez CONTRIBUTING.md pour les détails.
+## Configuration Environnementale
 
-## Licence
-MIT
+```env
+NODE_ENV=production
+AI_MODEL_PATH=./models/ssl-validator-v2
+ENERGY_MODE=balanced
+MAX_BATCH_SIZE=100
