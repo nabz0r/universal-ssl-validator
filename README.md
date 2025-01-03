@@ -1,90 +1,80 @@
 # Universal SSL Validator
 
-[English](#english) | [Français](#français)
+Un système avancé de validation SSL intégrant l'intelligence artificielle pour la détection proactive des vulnérabilités et le monitoring énergétique intelligent.
 
-# English
+## 🌟 Fonctionnalités
 
-An advanced SSL validation system integrating artificial intelligence for proactive vulnerability detection and intelligent energy monitoring.
+### Core
+- Validation SSL moderne et optimisée
+- Support multi-format (PEM, DER, PKCS12)
+- Architecture plugin extensible
+- Validation de chaîne de certificats
 
-## Core Features
+### Intelligence Artificielle
+- Détection proactive des vulnérabilités
+- Analyse temps réel des menaces
+- Recommandations de sécurité intelligentes
+- Apprentissage continu
 
-This system provides modern, eco-responsible SSL validation capabilities through its advanced features. It implements proactive vulnerability detection using artificial intelligence, an optimized RESTful API, and intelligent energy monitoring.
+### Monitoring Énergétique
+- Suivi temps réel de la consommation
+- Optimisation automatique des ressources
+- Calcul d'empreinte carbone
+- Recommandations d'efficience
 
-The artificial intelligence component uses a deep learning model to analyze SSL certificates and proactively detect potential vulnerabilities. The model continuously improves through machine learning algorithms.
+## 💻 Installation
 
-Our RESTful API offers comprehensive endpoints for certificate validation, multi-cloud integration, and energy monitoring. It includes advanced features such as rate limiting and compression for optimal performance.
-
-The system incorporates sophisticated energy monitoring that tracks and optimizes energy consumption in real-time, providing detailed metrics and optimization recommendations.
-
-## Quick Start
-
-Install the package:
 ```bash
 npm install universal-ssl-validator
 ```
 
-Basic usage:
+## 🚀 Utilisation Rapide
+
 ```typescript
-import { SSLValidatorAPI } from 'universal-ssl-validator';
+import { SSLValidator, AISecurityAnalyzer } from 'universal-ssl-validator';
 
-// Initialize the API
-const validator = new SSLValidatorAPI();
-validator.start(3000);
+// Validation de certificat avec analyse AI
+const validator = new SSLValidator();
+const analyzer = new AISecurityAnalyzer();
 
-// Validation with AI analysis
-const response = await fetch('http://localhost:3000/api/v1/certificates/validate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-        certificate: cert_base64,
-        format: 'PEM'
-    })
-});
+const result = await validator.validate(certificateBuffer);
+const security = await analyzer.analyze(certificateBuffer);
 
-const result = await response.json();
-console.log(result.validation);  // Validation result
-console.log(result.security);    // Vulnerability analysis
-console.log(result.energy);      // Energy metrics
+console.log(result);  // Résultat de la validation
+console.log(security);  // Analyse de sécurité
 ```
 
-## API Documentation
+## 📖 Documentation
 
-Our API provides the following endpoints:
+Pour plus de détails, consultez :
+- [Documentation Technique](docs/TECHNICAL.md)
+- [Guide API](docs/API.md)
+- [Guide Contribution](CONTRIBUTING.md)
 
-The certificate validation endpoint (POST /api/v1/certificates/validate) performs SSL certificate validation, AI vulnerability analysis, and provides energy metrics.
+## 🔧 Configuration
 
-The cloud integration endpoint (POST /api/v1/cloud/certificates) enables certificate deployment across various cloud platforms.
-
-The energy monitoring endpoint (GET /api/v1/monitoring/energy) provides detailed consumption metrics and optimization recommendations.
-
-## Configuration
-
-The system can be configured through a config.json file:
-
-```json
+```typescript
 {
+  "validator": {
+    "cacheEnabled": true,
+    "strictMode": true
+  },
   "ai": {
-    "modelPath": "./models/ssl-validator-v1",
+    "sensitivity": "high",
     "updateInterval": 3600
   },
   "monitoring": {
-    "energyThresholds": {
-      "warning": 70,
-      "critical": 90
-    }
+    "energyOptimization": true,
+    "reportingInterval": 300
   }
 }
 ```
 
-# Français
+## 🤝 Contribution
 
-[Documentation en français ici...]
+Les contributions sont bienvenues ! Voir le guide [CONTRIBUTING.md](CONTRIBUTING.md).
 
-# Contributing
-
-Contributions are welcome. Please check our contribution guidelines for more details.
-
-# License
+## 📜 License
 
 MIT
 
