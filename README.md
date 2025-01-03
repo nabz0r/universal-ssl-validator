@@ -82,11 +82,8 @@ pip install -r requirements.txt
 
 ## 🤝 Contribution
 
-1. Fork du projet
-2. Créez votre branche de feature (`git checkout -b feature/AmazingFeature`)
-3. Commitez vos modifications (`git commit -m 'Add some AmazingFeature'`)
-4. Poussez (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
+1. Commitez vos modifications (`git commit -m 'Add some AmazingFeature'`)
+2. Ouvrez une Pull Request
 
 ## 📄 Licence
 
@@ -94,6 +91,6 @@ Distribué sous licence MIT. Voir `LICENSE` pour plus d'informations.
 
 ## 📞 Contact
 
-Votre Nom - votre-email@example.com
+Nabil Ksontini nabz0r@gmail.Com 
 
-Lien du Projet: [https://github.com/votre-repo/ssl-validator](https://github.com/votre-repo/ssl-validator)
+Lien du Projet: [https://github.com/nabz0r/ssl-validator](https://github.com/nabz0r/ssl-validator)
