@@ -1,96 +1,50 @@
-# 🔐 Universal SSL/TLS Validator Framework
+# Universal SSL Validator
 
-![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+Un système moderne et modulaire de validation SSL, conçu pour être extensible et performant.
 
-## 🌐 Présentation du Projet
+## Architecture
 
-Un framework universel de validation SSL/TLS permettant de vérifier la sécurité des certificats à travers différentes plateformes et écosystèmes.
+Le système est construit autour d'une architecture modulaire composée de :
 
-### 🎯 Objectifs Principaux
+### Core System (Système Central)
+- Validation SSL de base
+- Gestion des plugins
+- Cache intelligent
+- Système de métriques
 
-- Validation cross-plateforme (Java, Python, OpenSSL, Windows)
-- Analyse cryptographique approfondie
-- Détection des vulnérabilités SSL/TLS
-- Reporting unifié et détaillé
+### Plugins Disponibles
+- Java Keystore Plugin : Validation complète des certificats JKS et PKCS12
+- Python SSL Plugin : Validation avancée utilisant la bibliothèque SSL de Python
 
-## 🏗️ Architecture du Système
-
-<details>
-<summary>Architecture Globale</summary>
-
-```mermaid
-flowchart TD
-    A[SSL Validator Framework] --> B{Plugin Manager}
-    B --> |Java Keystore| C[Plugin Java]
-    B --> |Python SSL| D[Plugin Python]
-    B --> |OpenSSL| E[Plugin OpenSSL]
-    B --> |Windows Cert| F[Plugin Windows]
-    
-    A --> G[Validation Checks]
-    G --> H[Cryptographic Integrity]
-    G --> I[Certificate Expiration]
-    G --> J[Protocol Version]
-    G --> K[Cipher Strength]
-    
-    A --> L[Reporting System]
-    L --> M[Detailed Logs]
-    L --> N[Status: Pass/Fail]
-```
-</details>
-
-## 🚀 Plan de Développement (Beta V0.1)
-
-### Phase 1: Fondations
-- [x] Architecture de base
-- [ ] Plugin Java Keystore
-- [ ] Plugin Python SSL
-- [ ] Système de validation core
-
-### Phase 2: Validation
-- [ ] Vérification des versions de protocole
-- [ ] Analyse des algorithmes de chiffrement
-- [ ] Validation des certificats
-
-### Phase 3: Reporting
-- [ ] Système de logs détaillés
-- [ ] Interface de reporting
-- [ ] Intégration des métriques de sécurité
-
-### Phase 4: Extensibilité
-- [ ] Mécanisme de plugin dynamique
-- [ ] Support multiplateforme
-- [ ] Configurations personnalisables
-
-## 🛠️ Installation
+## Installation
 
 ```bash
-git clone https://github.com/votre-repo/ssl-validator.git
-cd ssl-validator
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+npm install universal-ssl-validator
 ```
 
-## 📦 Dépendances
+## Utilisation Rapide
 
-- Python 3.8+
-- cryptography
-- pyOpenSSL
-- paramiko (optionnel)
+```typescript
+import { UniversalSSLValidator } from 'universal-ssl-validator';
 
-## 🤝 Contribution
+const validator = new UniversalSSLValidator();
 
-1. Commitez vos modifications (`git commit -m 'Add some AmazingFeature'`)
-2. Ouvrez une Pull Request
+// Validation simple
+const result = await validator.validateCertificate(certBuffer, 'JKS');
 
-## 📄 Licence
+// Validation de chaîne
+const chainResult = await validator.validateCertificateChain(certChainBuffers, 'PEM');
+```
 
-Distribué sous licence MIT. Voir `LICENSE` pour plus d'informations.
+## Documentation Détaillée
+Consultez le dossier `/docs` pour la documentation complète :
+- Architecture détaillée
+- Guide des plugins
+- Spécifications techniques
+- Guide de contribution
 
-## 📞 Contact
+## Contribution
+Les contributions sont les bienvenues ! Consultez CONTRIBUTING.md pour les détails.
 
-Nabil Ksontini nabz0r@gmail.Com 
-
-Lien du Projet: [https://github.com/nabz0r/ssl-validator](https://github.com/nabz0r/ssl-validator)
+## Licence
+MIT
