@@ -1,9 +1,4 @@
-{
-  `repo`: `universal-ssl-validator`,
-  `files`: [
-    {
-      `path`: `docs/ROADMAP.md`,
-      `content`: `# 🗺️ Roadmap Universal SSL Validator
+
 
 ## Phase 1 : Fondations (Complété ✅)
 - Système de validation core
