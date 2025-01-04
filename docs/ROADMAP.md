@@ -1,30 +1,17 @@
-# 🗺️ Roadmap Universal SSL Validator
+# 🗺️ Project Roadmap
 
-## Phase 1 : Fondations (Complété ✅)
-- Système de validation core
-- Support multi-providers
-- Monitoring énergétique de base
+## Current Phase
+- Mobile app development
+- Cross-platform integration
+- Enhanced security features
 
-## Phase 2 : Sécurité et Fiabilité (En cours 🚧)
-- Audit de sécurité complet (#12)
-- Tests exhaustifs (#14)
-- Validation robuste des entrées
-- Gestion sécurisée des secrets
+## Next Steps
+1. Push Notifications (#16)
+2. Offline Mode
+3. Widgets
+4. Voice Commands
 
-## Phase 3 : Accessibilité (Planifié 📅)
-- Interface CLI intuitive (#13)
-- Dashboard web simple
-- Documentation interactive
-- Tutoriels et guides
-
-## Phase 4 : Évolution (À venir 🔮)
-- Support providers additionnels
-- Analytics avancés
-- Automatisation complète
-- Intégrations tierces
-
-## Phase 5 : Enterprise (Future 🎯)
-- Support multi-tenant
-- High availability
-- Reporting personnalisé
-- SLA monitoring
+## Future Plans
+- AI Improvements
+- Enhanced Analytics
+- Enterprise Features
