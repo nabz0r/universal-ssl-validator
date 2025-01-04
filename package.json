@@ -9,14 +9,9 @@
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
     "test": "jest --coverage",
-    "lint": "eslint src/**/*.ts",
-    "docs": "typedoc src/",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "prepare": "husky install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nabz0r/universal-ssl-validator.git"
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write 'src/**/*.ts'",
+    "docs": "typedoc src/"
   },
   "keywords": [
     "ssl",
@@ -27,17 +22,16 @@
   ],
   "author": "nabz0r <nabz0r@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nabz0r/universal-ssl-validator/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nabz0r/universal-ssl-validator.git"
   },
-  "homepage": "https://github.com/nabz0r/universal-ssl-validator#readme",
   "dependencies": {
     "@tensorflow/tfjs-node": "^4.10.0",
+    "axios": "^1.6.2",
     "express": "^4.18.2",
-    "compression": "^1.7.4",
     "winston": "^3.11.0",
-    "node-forge": "^1.3.1",
-    "express-rate-limit": "^7.1.0"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
@@ -46,7 +40,6 @@
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
-    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "prettier": "^3.0.3",
     "ts-jest": "^29.1.1",

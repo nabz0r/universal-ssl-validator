@@ -1,56 +1,62 @@
+# 🛡️ Universal SSL Validator
 
+> Empowering the future of secure digital communications with AI-driven SSL validation and eco-conscious certificate management.
 
-## Phase 1 : Fondations (Complété ✅)
-- Système de validation core
-- Support multi-providers
-- Monitoring énergétique de base
+## 🌟 Vision
 
-## Phase 2 : Sécurité et Fiabilité (En cours 🚧)
-- Audit de sécurité complet (#12)
-- Tests exhaustifs (#14)
-- Validation robuste des entrées
-- Gestion sécurisée des secrets
+Universal SSL Validator revolutionizes SSL certificate management by combining cutting-edge AI technology with environmental consciousness. Our platform ensures maximum security while minimizing the ecological footprint of digital certificate operations.
 
-## Phase 3 : Accessibilité (Planifié 📅)
-- Interface CLI intuitive (#13)
-- Dashboard web simple
-- Documentation interactive
-- Tutoriels et guides
+## 🚀 Quick Start
 
-## Phase 4 : Évolution (À venir 🔮)
-- Support providers additionnels
-- Analytics avancés
-- Automatisation complète
-- Intégrations tierces
-
-## Phase 5 : Enterprise (Future 🎯)
-- Support multi-tenant
-- High availability
-- Reporting personnalisé
-- SLA monitoring`
-    },
-    {
-      `path`: `docs/architecture.md`,
-      `content`: `# 🏗️ Architecture
-
-## Vue d'ensemble
-
-```mermaid
-graph TD
-    A[Client Layer] --> B[Security Layer]
-    B --> C[Core Layer]
-    C --> D[Provider Layer]
-    D --> E[Monitoring Layer]
+```bash
+npm install universal-ssl-validator
 ```
 
-## Composants
+```typescript
+import { SSLValidator } from 'universal-ssl-validator';
 
-Chaque couche est conçue pour être :
-- Indépendante
-- Testable
-- Sécurisée
-- Évolutive`
-    }
+// Simple usage
+const validator = await SSLValidator.create('yourdomain.com');
 
-`nabz0r`,
-  `message`: `📚 Documentation mise à jour avec roadmap et architecture`
+// Advanced configuration
+const validator = await SSLValidator.createWithOptions({
+    domain: 'yourdomain.com',
+    provider: 'auto',
+    mode: 'secure'
+});
+```
+
+## ✨ Key Features
+
+### 🤖 Intelligent Validation
+- AI-powered vulnerability detection
+- Real-time threat monitoring
+- Machine learning adaptation
+
+### 🌿 Eco-Conscious Operations
+- Energy consumption monitoring
+- Resource optimization
+- Carbon footprint tracking
+
+### 🔄 Multi-Provider Support
+- Let's Encrypt (ACME v2)
+- GoDaddy SSL
+- DigiCert (coming soon)
+- Sectigo (planned)
+
+## 📖 Documentation
+
+- [Technical Guide](/docs/TECHNICAL.md)
+- [API Reference](/docs/API.md)
+- [Contributing](/CONTRIBUTING.md)
+
+## 🎯 Status
+
+[![CI](https://github.com/nabz0r/universal-ssl-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/nabz0r/universal-ssl-validator/actions/workflows/ci.yml)
+
+## License
+
+MIT
+
+Copyright (c) 2024 nabz0r (nabz0r@gmail.com)
+GitHub: https://github.com/nabz0r
