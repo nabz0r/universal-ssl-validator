@@ -4,36 +4,32 @@
   "description": "Advanced SSL validation system with AI-powered security and eco-friendly features",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "ssl-validator": "./dist/bin/ssl-validator.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
+    "cli": "ts-node src/bin/ssl-validator.ts",
     "test": "jest --coverage",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write 'src/**/*.ts'",
     "docs": "typedoc src/"
   },
-  "keywords": [
-    "ssl",
-    "security",
-    "validation",
-    "ai",
-    "eco-friendly"
-  ],
-  "author": "nabz0r <nabz0r@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nabz0r/universal-ssl-validator.git"
-  },
   "dependencies": {
     "@tensorflow/tfjs-node": "^4.10.0",
     "axios": "^1.6.2",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
     "express": "^4.18.2",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
     "winston": "^3.11.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/inquirer": "^8.2.10",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.0",
