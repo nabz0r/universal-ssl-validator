@@ -1,0 +1,44 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "SSL Validator Overview",
+    "tags": ["ssl-validator"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "Certificats Actifs",
+        "type": "stat",
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "targets": [
+          {
+            "expr": "sum(ssl_validator_active_certificates)",
+            "instant": true
+          }
+        ]
+      },
+      {
+        "title": "Validations par minute",
+        "type": "graph",
+        "gridPos": {
+          "h": 8,
+          "w": 18,
+          "x": 6,
+          "y": 0
+        },
+        "targets": [
+          {
+            "expr": "rate(ssl_validator_validations_total[5m])*60"
+          }
+        ]
+      }
+    ],
+    "refresh": "10s",
+    "schemaVersion": 30,
+    "version": 1
+  }
+}
