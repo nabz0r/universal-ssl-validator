@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import VoiceService from '../src/services/voice';
+import useVoice from '../src/hooks/useVoice';
 
 interface VoiceCommandButtonProps {
-  onCommand?: (command: string, args?: string) => void;
+  onCommand?: (command: { command: string; args?: string }) => void;
   size?: number;
   color?: string;
 }
@@ -14,34 +14,13 @@ const VoiceCommandButton: React.FC<VoiceCommandButtonProps> = ({
   size = 24,
   color = '#007AFF',
 }) => {
-  const [isListening, setIsListening] = useState(false);
-  const voiceService = VoiceService.getInstance();
-
-  useEffect(() => {
-    // Enregistrement des commandes de base
-    if (onCommand) {
-      voiceService.registerCommand('vérifier', (args) => onCommand('verify', args));
-      voiceService.registerCommand('valider', (args) => onCommand('validate', args));
-      voiceService.registerCommand('scanner', () => onCommand('scan'));
-      voiceService.registerCommand('statut', () => onCommand('status'));
-      voiceService.registerCommand('notifications', (args) => {
-        const action = args?.toLowerCase().includes('activer') ? 'enable' : 'disable';
-        onCommand('notifications', action);
-      });
-    }
-  }, [onCommand]);
+  const { isListening, startListening, stopListening } = useVoice(onCommand);
 
   const toggleListening = async () => {
-    try {
-      if (isListening) {
-        await voiceService.stopListening();
-      } else {
-        await voiceService.startListening();
-      }
-      setIsListening(!isListening);
-    } catch (error) {
-      console.error('Error toggling voice recognition:', error);
-      setIsListening(false);
+    if (isListening) {
+      await stopListening();
+    } else {
+      await startListening();
     }
   };
 
