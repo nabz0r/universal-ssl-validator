@@ -1,49 +1,30 @@
-# 🛡️ Universal SSL Validator
+[Garder tout le contenu existant et ajouter :]
 
-[Previous content remains unchanged until Features section...]
+## 🛠️ Déploiement & Configuration
 
-### 🤖 Intelligent Security
-- AI-powered vulnerability detection
-- ML-based certificate analysis
-- Historical pattern detection
-- Predictive security alerts
-- TensorFlow deep learning
-- Continuous model training
-- Anomaly detection
-- Smart recommendations
+### Installation Rapide
+```bash
+# Clone & Setup
+git clone https://github.com/nabz0r/universal-ssl-validator.git
+cd universal-ssl-validator
 
-[Previous content remains unchanged until Roadmap section...]
+# Démarrer avec Docker
+docker-compose -f docker/docker-compose.yml up -d
 
-## 🗺️ Innovation Roadmap
+# Vérifier le statut
+./scripts/deploy.sh status
+```
 
-Phase 1: Foundation (Completed ✅)
-- [x] Core validation system
-- [x] Basic AI security analysis
-- [x] Advanced AI implementation
-- [x] Web dashboard
-- [x] Mobile app base
-- [x] Database & Analytics
+### Monitoring
+- Dashboards Grafana inclus
+- Prometheus pour les métriques
+- ELK Stack pour les logs
+- Alerting configurable
 
-Phase 2: Enhancement (Current 🚧)
-- [x] Push notifications
-- [x] Offline mode
-- [x] Native widgets
-- [x] AI Learning System
-- [ ] Voice commands
+### Documentation
+- [Guide de Déploiement](docs/DEPLOYMENT.md)
+- [Configuration](docs/CONFIGURATION.md)
+- [API Documentation](docs/API.md)
+- [Monitoring](docs/MONITORING.md)
 
-[Rest of Roadmap remains unchanged...]
-
-## Features Status
-
-### AI & Security
-- ✅ Basic Validation
-- ✅ TensorFlow Integration
-- ✅ ML Model Training
-- ✅ Pattern Detection
-- ✅ Vulnerability Analysis
-- ✅ Continuous Learning
-- 🚧 Advanced Predictions
-
-[Previous status sections remain unchanged...]
-
-[Rest of README remains unchanged...]
+[Garder tout le contenu suivant]
