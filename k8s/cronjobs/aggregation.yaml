@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: metrics-aggregation
+spec:
+  schedule: "*/15 * * * *"  # Toutes les 15 minutes
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: aggregation
+            image: ssl-validator-maintenance:latest
+            command: ["node", "aggregate.js"]
+            env:
+              - name: DB_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: ssl-validator-config
+                    key: db_host
+          restartPolicy: OnFailure

@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: metrics-cleanup
+spec:
+  schedule: "0 0 * * *"  # Tous les jours à minuit
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cleanup
+            image: ssl-validator-maintenance:latest
+            command: ["node", "cleanup.js"]
+            env:
+              - name: DB_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: ssl-validator-config
+                    key: db_host
+          restartPolicy: OnFailure

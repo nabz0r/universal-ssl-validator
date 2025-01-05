@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: generate-reports
+spec:
+  schedule: "0 1 * * *"  # Tous les jours à 1h du matin
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: reports
+            image: ssl-validator-maintenance:latest
+            command: ["node", "reports.js"]
+            env:
+              - name: DB_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: ssl-validator-config
+                    key: db_host
+              - name: REPORT_EMAIL
+                value: "reports@ssl-validator.com"
+          restartPolicy: OnFailure
