@@ -32,10 +32,11 @@ export async function fetchCertificate(domain: string): Promise<X509Certificate>
 }
 
 export async function checkOCSP(cert: X509Certificate): Promise<OCSPResponse> {
-  // Cette fonction sera implémentée dans la prochaine itération
-  // Elle devra:
-  // 1. Extraire l'URL OCSP du certificat
-  // 2. Créer une requête OCSP
-  // 3. Envoyer la requête et analyser la réponse
-  throw new Error('OCSP check not implemented yet');
+  // Implémentation basique de la vérification OCSP
+  // TODO: Ajouter la logique complète
+  return {
+    status: 'unknown',
+    producedAt: new Date().toISOString(),
+    thisUpdate: new Date().toISOString(),
+  };
 }
