@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metrics-collector
+  template:
+    metadata:
+      labels:
+        app: metrics-collector
+    spec:
+      containers:
+      - name: collector
+        image: ssl-validator-metrics:latest
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: ssl-validator-config
+              key: db_host
+        - name: COLLECTION_INTERVAL
+          value: "15000"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: metrics-config
+          mountPath: /app/config
+      volumes:
+      - name: metrics-config
+        configMap:
+          name: metrics-collector-config
