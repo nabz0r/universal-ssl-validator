@@ -1,14 +1,28 @@
-export interface Certificate {
-  data: Buffer;
-  format: string;
-  metadata?: Record<string, any>;
+export interface CertificateInfo {
+  subject: string;
+  issuer: string;
+  validFrom: string;
+  validTo: string;
+  serialNumber: string;
+  fingerprint: string;
+  keyUsage: string[];
+}
+
+export interface OCSPResponse {
+  status: 'good' | 'revoked' | 'unknown';
+  producedAt: string;
+  thisUpdate: string;
+  nextUpdate?: string;
+  revokedReason?: string;
 }
 
 export interface ValidationResult {
-  isValid: boolean;
-  expirationDate: Date;
-  issuer: string;
-  subject: string;
-  processingTime: number;
-  errors?: string[];
+  valid: boolean;
+  certInfo: CertificateInfo | null;
+  dateValid: boolean;
+  keyUsageValid: boolean;
+  chainValid: boolean;
+  ocspStatus: OCSPResponse | null;
+  timestamp: string;
+  error: string | null;
 }
