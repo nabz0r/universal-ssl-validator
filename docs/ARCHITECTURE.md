@@ -1,73 +1,84 @@
-# 🏗️ System Architecture
+# System Architecture
 
-## System Overview
+## Overview
 
 ```mermaid
 graph TD
-    subgraph Client Layer
-        A[Client Request] --> B{Load Balancer}
-        B --> C[API Gateway]
+    A[Frontend Layer] --> B[API Gateway]
+    B --> C[Service Layer]
+    C --> D[Data Layer]
+    C --> E[AI Layer]
+    C --> F[Voice Processing]
+
+    subgraph Frontend Layer
+        A1[Web Dashboard]
+        A2[Mobile App]
+        A3[CLI Tool]
     end
 
-    subgraph Core Services
-        C --> D[Certificate Manager]
-        D --> E[Provider Orchestrator]
-        D --> F[AI Security Module]
-        D --> G[Energy Monitor]
+    subgraph Service Layer
+        C1[Certificate Service]
+        C2[Auth Service]
+        C3[Voice Service]
+        C4[Sync Service]
     end
 
-    subgraph Providers
-        E --> H[Let's Encrypt]
-        E --> I[GoDaddy]
-        E --> J[DigiCert]
+    subgraph Data Layer
+        D1[TimescaleDB]
+        D2[MongoDB]
+        D3[Redis]
     end
 
-    subgraph Monitoring
-        G --> K[(Metrics DB)]
-        K --> L[Analytics]
-        L --> M[Optimization Engine]
+    subgraph AI Layer
+        E1[ML Models]
+        E2[Voice Recognition]
+        E3[Predictive Analysis]
     end
-
-    style A fill:#4CAF50,stroke:#388E3C
-    style D fill:#2196F3,stroke:#1976D2
-    style F fill:#FF9800,stroke:#F57C00
-    style G fill:#9C27B0,stroke:#7B1FA2
 ```
 
-## Certificate Validation Flow
+## Components
 
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant M as Manager
-    participant P as Provider
-    participant AI as AI Module
-    participant E as Energy Monitor
+### Frontend Layer
+- React-based web dashboard
+- React Native mobile app
+- Voice-enabled CLI tool
 
-    C->>M: Request Certificate
-    activate M
-    M->>E: Start Monitoring
-    M->>P: Select Provider
-    activate P
-    P->>P: Validate Domain
-    P->>P: Generate CSR
-    P-->>M: Return Certificate
-    deactivate P
-    M->>AI: Analyze Security
-    AI-->>M: Security Report
-    M->>E: Update Metrics
-    M-->>C: Complete Response
-    deactivate M
-```
+### Service Layer
+- RESTful API services
+- WebSocket real-time updates
+- Voice command processing
 
-## Monitoring System
+### Data Layer
+- Time-series metrics
+- Document storage
+- Cache layer
 
-```mermaid
-graph LR
-    A[Operation] -->|Metrics| B{Collector}
-    B --> C[(Time Series DB)]
-    B --> D[Real-time Alerts]
-    C --> E[Analytics Engine]
-    E --> F[Dashboard]
-    E --> G[Optimization Tips]
-```
+### Voice Processing Layer
+- Command recognition
+- Natural language processing
+- State management
+- Feedback system
+
+## Communication
+
+### Internal
+- gRPC for services
+- Redis pub/sub
+- Event streaming
+
+### External
+- REST APIs
+- WebSocket
+- Voice streams
+
+## Security
+
+### Authentication
+- JWT tokens
+- Biometric auth
+- Voice recognition
+
+### Data Protection
+- End-to-end encryption
+- At-rest encryption
+- Voice data security

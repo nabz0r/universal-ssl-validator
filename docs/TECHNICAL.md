@@ -1,16 +1,37 @@
-# Documentation Technique
+# Technical Documentation
 
-## Composants du Système
+## Core Components
 
-1. Core Validation System
-2. Provider Integration Layer
-3. Energy Monitoring System
-4. AI Security Analysis
+### Certificate Validator
+- OpenSSL integration
+- Real-time validation
+- Multi-protocol support
 
-## Intégration des Providers
+### Voice Recognition System
+- Streaming recognition using @react-native-voice/voice
+- Command pattern matching with RegExp
+- Singleton service architecture
+- Event-based state management
+- Multi-language support (FR)
 
-Chaque provider implémente l'interface CertificateProvider avec :
-- Gestion des requêtes de certificats
-- Monitoring énergétique
-- Validation de domaine
-- Métriques de performance
+### Database Layer
+- TimescaleDB for metrics
+- MongoDB for analytics
+- Redis for caching
+
+### Security Layer
+- End-to-end encryption
+- Biometric integration
+- Zero-trust architecture
+
+## Performance Optimization
+- Lazy loading
+- Memory management
+- Cache strategies
+- Voice buffer optimization
+
+## Error Handling
+- Graceful degradation
+- Automatic retry
+- User feedback
+- Voice command error recovery
