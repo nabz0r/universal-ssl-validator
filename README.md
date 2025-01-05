@@ -1,6 +1,9 @@
+# 🛡️ Universal SSL Validator
 > Next-generation SSL certificate management with AI-powered security and eco-conscious features
+> 
 ## 🌟 Vision
 Transforming SSL certificate management through AI innovation, blockchain security, and environmental responsibility.
+
 ## 🚀 Features
 ### 🌐 Multi-Platform Support
 - **Web Dashboard**: Modern, responsive interface with real-time monitoring
@@ -17,7 +20,6 @@ Transforming SSL certificate management through AI innovation, blockchain securi
 - MongoDB for unstructured analysis
 - Redis for performance caching
 - Real-time ML training
-
 ### 📱 Mobile Features
 - Biometric security
 - Offline support with sync
@@ -32,6 +34,8 @@ Transforming SSL certificate management through AI innovation, blockchain securi
 - Resource optimization
 - Carbon footprint monitoring
 - Green computing practices
+
+  
 ## 🛠️ Déploiement & Configuration
 
 ### Installation Rapide
@@ -58,6 +62,11 @@ docker-compose -f docker/docker-compose.yml up -d
 - [Configuration](docs/CONFIGURATION.md)
 - [API Documentation](docs/API.md)
 - [Monitoring](docs/MONITORING.md)
+- [Technical Guide](docs/TECHNICAL.md)
+- [API Reference](docs/API.md)
+- [Database Setup](docs/DATABASE.md)
+- [Mobile Guide](docs/MOBILE.md)
+- [Widgets Guide](docs/WIDGETS.md)
 
 ## Quick Start
 ```bash
@@ -76,12 +85,8 @@ cd mobile && npm start
 ```
 
 Sync happens automatically when online.
-## 📚 Documentation
-- [Technical Guide](docs/TECHNICAL.md)
-- [API Reference](docs/API.md)
-- [Database Setup](docs/DATABASE.md)
-- [Mobile Guide](docs/MOBILE.md)
-- [Widgets Guide](docs/WIDGETS.md)
+
+
 ## 🗺️ Innovation Roadmap
 Phase 1: Foundation (Completed ✅)
 - [x] Core validation system
