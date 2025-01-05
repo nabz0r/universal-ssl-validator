@@ -1,6 +1,6 @@
-# System Architecture
+# Architecture du Système
 
-## Overview
+## Vue d'Ensemble
 
 ```mermaid
 graph TD
@@ -8,12 +8,14 @@ graph TD
     B --> C[Service Layer]
     C --> D[Data Layer]
     C --> E[AI Layer]
-    C --> F[Voice Processing]
+    C --> F[Blockchain Layer]
+    C --> G[IoT Layer]
 
     subgraph Frontend Layer
         A1[Web Dashboard]
         A2[Mobile App]
         A3[CLI Tool]
+        A4[IoT Devices]
     end
 
     subgraph Service Layer
@@ -21,64 +23,100 @@ graph TD
         C2[Auth Service]
         C3[Voice Service]
         C4[Sync Service]
+        C5[AI Predictive Service]
+        C6[Blockchain Audit Service]
+        C7[IoT Manager Service]
     end
 
     subgraph Data Layer
         D1[TimescaleDB]
         D2[MongoDB]
         D3[Redis]
+        D4[Blockchain Storage]
     end
 
     subgraph AI Layer
         E1[ML Models]
         E2[Voice Recognition]
         E3[Predictive Analysis]
+        E4[Anomaly Detection]
+    end
+
+    subgraph Blockchain Layer
+        F1[Smart Contracts]
+        F2[Audit Trail]
+        F3[Validation Records]
+    end
+
+    subgraph IoT Layer
+        G1[Device Management]
+        G2[Protocol Adapters]
+        G3[Security Monitor]
     end
 ```
 
-## Components
+## Composants
 
 ### Frontend Layer
-- React-based web dashboard
-- React Native mobile app
-- Voice-enabled CLI tool
+- Dashboard web React
+- Application mobile React Native
+- Interface CLI
+- Intégration IoT
 
 ### Service Layer
-- RESTful API services
-- WebSocket real-time updates
-- Voice command processing
+- API REST
+- WebSocket temps réel
+- Traitement vocal
+- IA prédictive
+- Audit blockchain
+- Gestion IoT
 
 ### Data Layer
-- Time-series metrics
-- Document storage
-- Cache layer
+- Métriques temporelles
+- Stockage documents
+- Cache
+- Stockage blockchain
 
-### Voice Processing Layer
-- Command recognition
-- Natural language processing
-- State management
-- Feedback system
+### AI Layer
+- Reconnaissance vocale
+- Analyse prédictive
+- Détection d'anomalies
+- Apprentissage continu
+
+### Blockchain Layer
+- Gestion des smart contracts
+- Audit trail immuable
+- Validation des certificats
+
+### IoT Layer
+- Gestion des appareils
+- Adaptateurs de protocoles
+- Sécurité et surveillance
 
 ## Communication
 
-### Internal
-- gRPC for services
+### Interne
+- gRPC pour les services
 - Redis pub/sub
-- Event streaming
+- Streaming d'événements
+- MQTT pour IoT
 
-### External
-- REST APIs
+### Externe
+- API REST
 - WebSocket
-- Voice streams
+- Flux vocaux
+- Blockchain RPC
 
-## Security
+## Sécurité
 
-### Authentication
-- JWT tokens
-- Biometric auth
-- Voice recognition
+### Authentification
+- Tokens JWT
+- Auth biométrique
+- Reconnaissance vocale
+- Clés blockchain
 
-### Data Protection
-- End-to-end encryption
-- At-rest encryption
-- Voice data security
+### Protection des Données
+- Chiffrement de bout en bout
+- Chiffrement au repos
+- Sécurité des données vocales
+- Protection IoT
