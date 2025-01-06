@@ -1,9 +1,10 @@
 import { X509Certificate } from 'crypto';
-import { ValidationResult, CertificateInfo, OCSPResponse } from './types';
+import { ValidationResult, CertificateInfo, OCSPResponse, CTLogInfo } from './types';
 import { fetchCertificate, checkOCSP } from '../utils/network';
 import { validateDates, validateKeyUsage, validateChain } from './checks';
 import { isValidDomain, sanitizeDomain } from '../utils/validation';
 import { logger } from '../utils/logger';
+import { verifyCTLogs } from './ct-verification';
 
 export class SSLValidator {
   private readonly options: SSLValidatorOptions;
@@ -25,7 +26,7 @@ export class SSLValidator {
       const sanitizedDomain = sanitizeDomain(domain);
       const cert = await fetchCertificate(sanitizedDomain);
       
-      const certInfo = this.extractCertificateInfo(cert);
+      const certInfo = await this.extractCertificateInfo(cert);
       const [dateValid, keyUsageValid, chainValid] = await Promise.all([
         validateDates(cert),
         validateKeyUsage(cert),
@@ -37,12 +38,22 @@ export class SSLValidator {
         ocspStatus = await this.performOCSPCheck(cert);
       }
 
+      let ctValid = undefined;
+      if (this.options.checkCT) {
+        const ctLogs = await verifyCTLogs(cert);
+        certInfo.ctLogs = ctLogs;
+        ctValid = ctLogs.length > 0 && ctLogs.every(log => log.signatureValid);
+      }
+
       const result = {
-        valid: dateValid && keyUsageValid && chainValid && (!ocspStatus || ocspStatus.status === 'good'),
+        valid: dateValid && keyUsageValid && chainValid && 
+               (!ocspStatus || ocspStatus.status === 'good') &&
+               (ctValid === undefined || ctValid),
         certInfo,
         dateValid,
         keyUsageValid,
         chainValid,
+        ctValid,
         ocspStatus,
         timestamp: new Date().toISOString(),
         error: null
@@ -73,6 +84,7 @@ export class SSLValidator {
         dateValid: false,
         keyUsageValid: false,
         chainValid: false,
+        ctValid: false,
         ocspStatus: null,
         timestamp: new Date().toISOString(),
         error: this.standardizeError(error)
@@ -80,16 +92,25 @@ export class SSLValidator {
     }
   }
 
-  private extractCertificateInfo(cert: X509Certificate): CertificateInfo {
-    return {
+  private async extractCertificateInfo(cert: X509Certificate): Promise<CertificateInfo> {
+    const info = {
       subject: cert.subject,
       issuer: cert.issuer,
       validFrom: cert.validFrom,
       validTo: cert.validTo,
       serialNumber: cert.serialNumber,
       fingerprint: cert.fingerprint,
-      keyUsage: cert.keyUsage
+      keyUsage: cert.keyUsage,
+      extendedKeyUsage: cert.extendedKeyUsage,
+      subjectAltNames: [], // À extraire des extensions
+      signatureAlgorithm: cert.sigAlgName,
+      publicKeyInfo: {
+        algorithm: cert.publicKey.asymmetricKeyType,
+        size: cert.publicKey.asymmetricKeySize
+      }
     };
+
+    return info;
   }
 
   private async performOCSPCheck(cert: X509Certificate): Promise<OCSPResponse> {
@@ -102,7 +123,14 @@ export class SSLValidator {
 
   private standardizeError(error: unknown): string {
     if (error instanceof Error) {
-      const knownPrefixes = ['INVALID_INPUT:', 'NETWORK_ERROR:', 'CERT_ERROR:', 'TIMEOUT_ERROR:', 'OCSP_ERROR:'];
+      const knownPrefixes = [
+        'INVALID_INPUT:', 
+        'NETWORK_ERROR:', 
+        'CERT_ERROR:', 
+        'TIMEOUT_ERROR:', 
+        'OCSP_ERROR:',
+        'CT_ERROR:'
+      ];
       
       if (knownPrefixes.some(prefix => error.message.startsWith(prefix))) {
         return error.message;
@@ -116,6 +144,7 @@ export class SSLValidator {
 
 export interface SSLValidatorOptions {
   checkOCSP: boolean;
+  checkCT: boolean;
   timeout: number;
   maxRetries: number;
   cache: boolean;
@@ -124,6 +153,7 @@ export interface SSLValidatorOptions {
 
 const defaultOptions: SSLValidatorOptions = {
   checkOCSP: true,
+  checkCT: true,
   timeout: 5000,
   maxRetries: 3,
   cache: true,
