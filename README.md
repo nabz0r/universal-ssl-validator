@@ -217,26 +217,64 @@ cd mobile && npm start
 ```
 
 ## 🗺️ Innovation Roadmap
-Phase 1: Foundation ✅
+Phase 1: Foundation
+
 Core validation system ✅
-AI security analysis ❌
-Web dashboard ⚠️
-Mobile app base ⚠️
-Phase 2: Enhancement
+SSL/TLS validation ✅
+Chain validation ✅
+OCSP checks ✅
+Web dashboard ⚠️ (base fonctionnelle mais UI à améliorer)
+Mobile app base ❌
+
+Phase 2: Security Enhancement
+
+Advanced security features ⚠️
 Push notifications ❌
 Offline mode ❌
-Native widgets ❌
+Certificate monitoring ✅
 Voice commands ❌
+
 Phase 3: Innovation
+
 Blockchain audit system ✅
+Smart contracts ✅
 AI predictive security ❌
 IoT integration ⚠️
-Smart contract validation ❌
+Smart contract validation ✅
+Security metrics ✅
+
 Phase 4: Future 🔮
+
 Quantum-safe encryption
-AR/VR visualization
-Advanced voice AI
+Advanced AI analysis
 Cross-chain features
+AR/VR visualization
+
+Completed Core Features:
+
+SSL Validation Engine ✅
+Certificate Chain Validation ✅
+OCSP Integration ✅
+Blockchain Auditing ✅
+Rate Limiting ✅
+Input Validation ✅
+Basic Monitoring ✅
+
+In Progress:
+
+AI Analysis ❌
+Energy Monitoring ⚠️
+Multi-provider Support ⚠️
+Real-time Dashboard ⚠️
+Analytics System ❌
+
+IoT Features:
+
+MQTT Support ✅
+CoAP Support ✅
+Device Registry ⚠️
+Firmware Updates ❌
+Fleet Management ❌
 
 ## Features Status
 ### Core System
