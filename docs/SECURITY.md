@@ -84,4 +84,4 @@ All responses include:
 
 ## Security Reports
 
-If you discover any security issues, please report them to security@universal-ssl-validator.io
+If you discover any security issues, please report them to nabz0r@gmail.com
