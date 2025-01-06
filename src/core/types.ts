@@ -6,6 +6,7 @@ export interface ValidationResult {
   dateValid: boolean;
   keyUsageValid: boolean;
   chainValid: boolean;
+  ctValid?: boolean;
   ocspStatus: OCSPResponse | null;
   timestamp: string;
   error: string | null;
@@ -26,6 +27,13 @@ export interface CertificateInfo {
     algorithm: string;
     size: number;
   };
+  ctLogs?: CTLogInfo[];
+}
+
+export interface CTLogInfo {
+  logOperator: string;
+  timestamp: string;
+  signatureValid: boolean;
 }
 
 export interface OCSPResponse {
@@ -47,6 +55,7 @@ export interface SSLValidatorOptions {
   requiredKeyUsage?: string[];
   securityLevel?: 'basic' | 'standard' | 'high';
   monitoring?: boolean;
+  checkCT?: boolean;
 }
 
 export interface ValidationError extends Error {
@@ -57,7 +66,7 @@ export interface ValidationError extends Error {
 export interface CertificateChain {
   leaf: X509Certificate;
   intermediates: X509Certificate[];
-  root: X509Certificate;
+  root: X509Certificate | null;
 }
 
 export interface ValidationContext {
@@ -65,5 +74,6 @@ export interface ValidationContext {
   options: SSLValidatorOptions;
   chain?: CertificateChain;
   ocspResponders?: string[];
+  ctLogs?: string[];
   startTime: number;
 }
