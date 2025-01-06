@@ -8,8 +8,11 @@
 `GET /api/v1/validate/{domain}`
 
 #### Paramètres
-- `domain` (obligatoire) : Domaine à valider
-- `options` (optionnel) : Options de validation
+- `domain` (obligatoire): Domaine à valider
+- `options` (optionnel): Options de validation
+  - `checkOCSP`: booléen
+  - `checkCT`: booléen
+  - `checkDANE`: booléen
 
 #### Réponse
 ```json
@@ -36,6 +39,14 @@
         "timestamp": "2024-01-01T00:00:00Z",
         "signatureValid": true
       }
+    ],
+    "daneRecords": [
+      {
+        "usage": 1,
+        "selector": 0,
+        "matchingType": 1,
+        "certificate": "..."
+      }
     ]
   },
   "dateValid": true,
@@ -47,6 +58,7 @@
     "thisUpdate": "2024-01-01T00:00:00Z",
     "nextUpdate": "2024-01-02T00:00:00Z"
   },
+  "daneValid": true,
   "timestamp": "2024-01-01T12:00:00Z",
   "error": null
 }
@@ -62,7 +74,8 @@
   "domains": ["example.com", "example.org"],
   "options": {
     "checkOCSP": true,
-    "checkCT": true
+    "checkCT": true,
+    "checkDANE": true
   }
 }
 ```
@@ -136,12 +149,14 @@ ws://api/v1/ws
 ## Gestion des Erreurs
 
 ### Codes d'Erreur
-- `INVALID_INPUT` : Entrée invalide
-- `NETWORK_ERROR` : Erreur réseau
-- `CERT_ERROR` : Erreur de certificat
-- `TIMEOUT_ERROR` : Timeout
-- `OCSP_ERROR` : Erreur OCSP
-- `INTERNAL_ERROR` : Erreur interne
+- `INVALID_INPUT`: Entrée invalide
+- `NETWORK_ERROR`: Erreur réseau
+- `CERT_ERROR`: Erreur de certificat
+- `TIMEOUT_ERROR`: Timeout
+- `OCSP_ERROR`: Erreur OCSP
+- `CT_ERROR`: Erreur CT Logs
+- `DANE_ERROR`: Erreur DANE/TLSA
+- `INTERNAL_ERROR`: Erreur interne
 
 ### Format d'Erreur
 ```json

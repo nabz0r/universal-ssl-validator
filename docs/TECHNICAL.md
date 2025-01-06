@@ -2,123 +2,139 @@
 
 ## Architecture
 
-Le validateur SSL universel est construit sur une architecture modulaire avec les composants suivants :
+Le validateur SSL universel implémente une validation complète des certificats avec :
 
 ### Core Validator
-- Validation complète des certificats SSL/TLS
-- Vérification OCSP en temps réel
-- Validation de la chaîne de certification
-- Support Certificate Transparency (CT)
+- Validation X.509 
+- Support TLS 1.2/1.3
+- OCSP Real-time
+- Certificate Transparency (CT) Logs
+- DANE/TLSA
+- Validation chaîne de certification
+- Trust Store système
 
-### Système de Monitoring
-- Métriques Prometheus intégrées
-- Système d'alertes configurable
-- Tracking des erreurs et anomalies
-- Surveillance des expirations
+### OCSP
+- Vérification OCSP Stapling
+- Gestion des timeouts
+- Cache de réponses
+- Retry automatique
 
-### Sécurité
-- Rate limiting intelligent
-- Validation d'entrées stricte
-- Audit blockchain
-- Protection contre les attaques
+### CT Logs
+- Extraction SCT (RFC 6962)
+- Vérification signatures SCT
+- Support logs multiples
+- Validation de timestamps
 
-## Métriques Disponibles
+### DANE/TLSA (RFC 6698)
+- PKIX-TA (CA constraint)
+- PKIX-EE (Service cert)
+- DANE-TA (Trust anchor)
+- DANE-EE (Domain cert)
+- Tous modes de matching (SHA-256/512)
 
-### Validation SSL
-- `ssl_validations_total` : Nombre total de validations
-- `ssl_validation_duration_seconds` : Durée des validations
-- `ssl_ocsp_latency_seconds` : Latence des vérifications OCSP
-- `ssl_cert_expiry_days` : Jours avant expiration
-- `ssl_chain_length` : Longueur des chaînes de certification
+### Trust Store
+- CA système
+- Trust anchors custom
+- Blacklist/Whitelist
+- Rotation auto des CAs
+- Support des cross-signed certs
 
-### Performance
-- Histogrammes de latence
-- Compteurs d'erreurs
-- Métriques de cache
-
-## Systèmes d'Alerte
-
-### Alertes Configurées
-- Expiration de certificats (30 jours par défaut)
-- Erreurs de validation répétées
-- Anomalies de sécurité
-- Problèmes de performances
-
-## APIs et Intégrations
+## API & Endpoints
 
 ### REST API
-```
+
+#### SSL Validation
+```typescript
 GET /validate/{domain}
 POST /validate/bulk
-GET /metrics
-GET /health
 ```
 
-### WebSocket API
-- Notifications en temps réel
-- Streaming de métriques
-- Alertes instantanées
+#### OCSP
+```typescript
+GET /ocsp/check/{serial}
+POST /ocsp/stapling
+```
 
-## Déploiement
+#### CT Logs
+```typescript
+GET /ct/logs/{domain}
+POST /ct/verify
+```
 
-### Prérequis
-- Node.js >= 18
-- Redis
-- MongoDB
-- TimescaleDB
+#### DANE/TLSA
+```typescript
+GET /dane/validate/{domain}
+GET /dane/records/{domain}
+```
 
-### Configuration
+### WebSocket
+```typescript
+ws://api/v1/events
+```
+
+## Configuration
+
+### OCSP
 ```yaml
-validator:
-  ocsp:
-    enabled: true
-    timeout: 5000
-  ct:
-    enabled: true
-    minLogs: 2
-  monitoring:
-    enabled: true
-    retention: 30d
+ocsp:
+  timeout: 5s
+  maxRetries: 3
+  cache: true
+  cacheExpiry: 3600
 ```
 
-### Haute Disponibilité
-- Support cluster Node.js
-- Réplication Redis
-- Failover automatique
+### CT Logs
+```yaml
+ctLogs:
+  minLogs: 2
+  minTimestamp: 3600
+  trustedLogs:
+    - operator: "Google"
+      key: "..."
+    - operator: "Cloudflare" 
+      key: "..."
+```
 
-## Sécurité
+### DANE
+```yaml
+dane:
+  enabled: true
+  enforced: false
+  supportedUsages: [0,1,2,3]
+  supportedMatching: [1,2]
+```
 
-### Protections
-- Rate limiting par IP/utilisateur
-- Validation des entrées
-- Sanitization des données
-- Protection DDoS
+### Trust Store
+```yaml
+trustStore:
+  systemCAs: true
+  customCAs: "/path/to/cas"
+  blacklist: "/path/to/blacklist"
+  autoUpdate: true
+```
 
-### Audit
-- Logs sécurisés
-- Audit trail blockchain
-- Métriques de sécurité
+## Journalisation
 
-## Dépannage
+### Logs Structurés
+```json
+{
+  "level": "info",
+  "event": "cert.validate", 
+  "domain": "example.com",
+  "chain": true,
+  "ct": true,
+  "ocsp": "good",
+  "dane": true
+}
+```
 
-### Logs
-- Logs structurés JSON
-- Niveaux de log configurables
-- Rotation automatique
-
-### Debug
-- Mode debug détaillé
-- Traces de validation
-- Métriques détaillées
-
-## Maintenance
-
-### Backups
-- Sauvegarde des données
-- Export des métriques
-- Restauration testée
-
-### Mise à jour
-- Mise à jour sans interruption
-- Rollback automatique
-- Tests de régression
+### Métriques
+```yaml
+metrics:
+  - validation_total 
+  - validation_errors
+  - ocsp_latency
+  - ct_logs_count
+  - dane_records
+  - chain_length
+```

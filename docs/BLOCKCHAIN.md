@@ -1,56 +1,44 @@
 # Système d'Audit Blockchain
 
-## Vue d'ensemble
-Le système d'audit blockchain fournit une traçabilité immuable des validations de certificats SSL.
-
-## Fonctionnalités
-- Enregistrement des audits sur la blockchain
-- Historique immuable des validations
-- Vérification des certificats
-- Smart contracts pour l'automatisation
-
 ## Architecture
+
+### Smart Contracts
+- Validation des signatures
+- Gestion des autorités
+- Stockage des certificats
+- Historique des validations
+
+### Chainage
 ```mermaid
 graph TD
-    A[Validation SSL] --> B[Service Audit]
+    A[Certificat] --> B[Validation]
     B --> C[Smart Contract]
-    C --> D[Blockchain]
+    C --> D[Bloc Validation]
     D --> E[Historique]
 ```
 
-## Smart Contract
-- Stockage des audits
-- Vérification des événements
-- Gestion des accès
-- Traçabilité complète
+## APIs
 
-## API Blockchain
+### REST
 ```typescript
-// Exemple d'utilisation
-const audit = new BlockchainAuditService();
-
-// Enregistrer un audit
-await audit.recordAudit({
-  domain: 'example.com',
-  certificateHash: '0x...',
-  timestamp: Date.now(),
-  validationResult: true,
-  auditor: '0x...'
-});
-
-// Vérifier l'historique
-const history = await audit.getAuditHistory('example.com');
+GET /blockchain/audit/{domain}
+POST /blockchain/record
 ```
 
-## Sécurité
-- Validation multi-signatures
-- Protection contre la falsification
-- Historique immuable
-- Accès contrôlé
+### Events
+```solidity
+event CertificateValidated(
+    string domain,
+    bool valid,
+    uint256 timestamp
+);
+```
 
 ## Configuration
-```env
-BLOCKCHAIN_RPC_URL=https://...
-CONTRACT_ADDRESS=0x...
-AUDITOR_KEY=...
+```yaml
+blockchain:
+  network: "mainnet"
+  contract: "0x..."
+  autoCommit: true
+  gasLimit: 200000
 ```
