@@ -39,6 +39,20 @@ Le validateur SSL universel implémente une validation complète des certificats
 - Rotation auto des CAs
 - Support des cross-signed certs
 
+### Device Monitoring
+- Métriques temps réel
+- État connexion
+- Validité certificats
+- Latence/performance
+- Détection anomalies
+
+### Fleet Monitoring
+- Métriques agrégées
+- Taux d'erreurs
+- Santé globale
+- Alertes automatiques
+- Rotation certificates
+
 ## API & Endpoints
 
 ### REST API
@@ -67,9 +81,20 @@ GET /dane/validate/{domain}
 GET /dane/records/{domain}
 ```
 
+#### Monitoring
+```typescript
+GET /monitoring/device/{id}
+GET /monitoring/device/{id}/metrics
+GET /monitoring/fleet/{id}
+GET /monitoring/fleet/{id}/metrics
+GET /monitoring/alerts
+```
+
 ### WebSocket
 ```typescript
 ws://api/v1/events
+ws://api/v1/monitoring/device/{id}
+ws://api/v1/monitoring/fleet/{id}
 ```
 
 ## Configuration
@@ -113,6 +138,69 @@ trustStore:
   autoUpdate: true
 ```
 
+### Monitoring
+```yaml
+monitoring:
+  device:
+    interval: 60     # Secondes
+    timeout: 5000    # ms
+    retries: 3
+
+  fleet:
+    interval: 300    # Secondes
+    aggregation: 15  # Minutes
+
+  alerts:
+    errorRate: 0.1   # 10%
+    latency: 1000    # ms
+    certDays: 30     # Jours
+```
+
+## Base de Données
+
+### MongoDB
+- Devices & Flottes
+- Configuration
+- États & Métadonnées
+
+### TimescaleDB 
+- Métriques temporelles
+- Données historiques
+- Agrégations
+
+### Redis
+- Cache temps réel
+- États & Métriques
+- Rate limiting
+
+## Types de Métriques
+
+### Device Metrics
+```typescript
+interface DeviceMetrics {
+  deviceId: string;
+  status: DeviceStatus;
+  connected: boolean;
+  certDaysRemaining: number;
+  errorCount: number;
+  latency: number;
+  timestamp: Date;
+}
+```
+
+### Fleet Metrics 
+```typescript
+interface FleetMetrics {
+  fleetId: string;
+  totalDevices: number;
+  connectedDevices: number;
+  errorRate: number;
+  avgCertDaysRemaining: number;
+  certRotationsPending: number;
+  timestamp: Date;
+}
+```
+
 ## Journalisation
 
 ### Logs Structurés
@@ -137,4 +225,7 @@ metrics:
   - ct_logs_count
   - dane_records
   - chain_length
+  - device_connected
+  - fleet_error_rate
+  - cert_days_remaining
 ```
