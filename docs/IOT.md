@@ -51,7 +51,7 @@ const coapConfig: AdapterConfig = {
 };
 ```
 
-### Device Registry
+## Device Registry
 
 ```typescript
 // Enregistrement device
@@ -72,6 +72,66 @@ device.on('status', (status) => {
 
 device.on('cert-expiring', (days) => {
   console.log(`Certificate expires in ${days} days`);
+});
+```
+
+## Fleet Management
+
+### Configuration des Flottes
+```typescript
+const fleet = await fleetManager.createFleet({
+  id: 'fleet-001',
+  name: 'Production Sensors',
+  tags: ['prod', 'sensors'],
+  devices: [],
+  config: {
+    updatePolicy: {
+      automatic: true,
+      timeWindow: { start: '02:00', end: '04:00' },
+      batchSize: 10,
+      failureThreshold: 0.1
+    },
+    certRotation: {
+      enabled: true,
+      daysBeforeExpiry: 30,
+      staggered: true
+    },
+    monitoring: {
+      healthCheckInterval: 300000,
+      metricsInterval: 60000,
+      alertThresholds: {
+        errorRate: 0.05,
+        latency: 1000
+      }
+    }
+  }
+});
+
+// Ajout de devices à la flotte
+await fleetManager.addDeviceToFleet('fleet-001', 'device-001');
+
+// Mise à jour de la configuration
+await fleetManager.updateFleetConfig('fleet-001', {
+  certRotation: {
+    daysBeforeExpiry: 45
+  }
+});
+```
+
+### Monitoring de Flotte
+```typescript
+// Métriques automatiques
+metrics.gauge('fleet_devices_total', fleet.devices.length);
+metrics.gauge('fleet_devices_connected', connectedCount);
+metrics.gauge('fleet_cert_days_avg', avgCertDays);
+
+// Santé de la flotte
+fleet.on('health-check', (stats) => {
+  console.log('Fleet health:', stats);
+});
+
+fleet.on('cert-rotation', (device) => {
+  console.log('Certificate rotated for:', device.id);
 });
 ```
 
@@ -112,11 +172,12 @@ metrics.histogram('mqtt_message_size');
 metrics.gauge('mqtt_connection_errors');
 ```
 
-### API
+### Fleet Stats
 ```typescript
-metrics.histogram('api_request_duration');
-metrics.counter('api_requests_total');
-metrics.gauge('api_errors_total');
+metrics.gauge('fleet_error_rate');
+metrics.gauge('fleet_cert_rotations');
+metrics.histogram('fleet_update_duration');
+metrics.counter('fleet_alerts_total');
 ```
 
 ## Configuration
@@ -132,6 +193,11 @@ iot:
     port: 5684
     multicast: true
     blockSize: 1024
+
+  fleet:
+    maxDevices: 1000
+    updateBatchSize: 10
+    healthCheckInterval: 300
 
   security:
     tls:
