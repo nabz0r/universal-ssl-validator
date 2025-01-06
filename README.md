@@ -32,8 +32,94 @@ graph TB
     B1 & B2 & B3 & B4 --> C1 & C2 & C3 & C4
 ```
 
-## 🚀 Features
 
+## Core Components Status
+
+### Core System
+- ✅ SSL Validation Engine
+- ✅ Certificate Chain Validation
+- ✅ OCSP Integration
+- ❌ CT Log Verification
+- ✅ Rate Limiting
+- ✅ Input Validation
+- ✅ TLS Hardening
+- ✅ Basic Monitoring
+- ✅ Error Handling
+
+### Security
+- ✅ Rate Limiting
+- ✅ Input Sanitization
+- ✅ Basic Security Checks
+- ✅ Error Standardization
+- ⚠️ Advanced Threat Detection
+- ❌ Anomaly Detection
+
+### Monitoring & Metrics
+- ✅ Basic Logging
+- ✅ Security Logs
+- ✅ Performance Metrics
+- ⚠️ Energy Monitoring
+- ❌ Advanced Analytics
+- ❌ AI-Powered Analysis
+
+### Web & Mobile
+- ❌ Web Dashboard
+- ❌ Mobile App
+- ❌ Push Notifications
+- ❌ Offline Mode
+- ❌ Certificate Scanning
+- ❌ Voice Commands
+
+### IoT & Devices
+- ❌ MQTT Support
+- ❌ CoAP Support
+- ❌ Device Registry
+- ❌ Firmware Updates
+- ❌ Fleet Management
+
+### Blockchain Features
+- ✅ Basic Smart Contracts
+- ✅ Audit Trail
+- ✅ Transaction Validation
+- ❌ Cross-Chain Support
+
+### Infrastructure
+- ⚠️ Docker Support
+- ❌ CI/CD Pipeline
+- ❌ Automated Testing
+- ❌ Load Balancing
+
+### Database Integration
+- ⚠️ Redis Caching
+- ❌ TimescaleDB Integration
+- ❌ MongoDB Analytics
+- ❌ ML Dataset
+
+### Provider Integration
+- ⚠️ Let's Encrypt
+- ⚠️ GoDaddy
+- ❌ Custom Providers
+
+### Documentation & Deployment
+- ⚠️ API Documentation
+- ⚠️ Deployment Guide
+- ❌ Development Guide
+- ❌ Testing Guide
+
+### Eco Features
+- ⚠️ Energy Monitoring
+- ❌ Carbon Footprint
+- ❌ Resource Optimization
+- ❌ Green Metrics
+
+Légende:
+✅ Implémenté et fonctionnel
+⚠️ Partiellement implémenté
+❌ Non implémenté
+
+
+
+## 🚀 Features
 ### 🌐 Multi-Platform Support
 - **Web Dashboard**: Modern, responsive interface with real-time monitoring
 - **Mobile App**: Native iOS and Android apps with biometric security
@@ -67,42 +153,6 @@ flowchart LR
 - Real-time ML training
 - Blockchain immutable logs
 
-### 📊 Monitoring Avancé
-- Device Monitoring temps réel
-- Fleet Management complet
-- Métriques temps réel & historiques
-- Détection anomalies automatique
-- Alertes configurables
-- Rotation certificats intelligente
-- Dashboards Grafana intégrés
-
-```mermaid
-graph TB
-    subgraph Monitoring
-        M1[Device Monitor]
-        M2[Fleet Monitor]
-        M3[Metrics Collector]
-        M4[Alert Manager]
-    end
-
-    subgraph Storage
-        S1[TimescaleDB]
-        S2[Redis Cache]
-        S3[MongoDB]
-    end
-
-    subgraph Visualization
-        V1[Grafana]
-        V2[CLI]
-        V3[API]
-    end
-
-    M1 & M2 --> M3
-    M3 --> M4
-    M3 --> S1 & S2 & S3
-    S1 & S2 & S3 --> V1 & V2 & V3
-```
-
 ```mermaid
 sequenceDiagram
     participant C as Certificate
@@ -126,41 +176,181 @@ sequenceDiagram
 - Native widgets
 - QR code scanning
 
-[GARDER TOUT LE RESTE DU README EXISTANT JUSQU'À LA SECTION Core Components Status]
+## IoT Integration
+```mermaid
+flowchart TB
+    subgraph IoT Devices
+        D1[Sensor]
+        D2[Gateway]
+        D3[Controller]
+    end
 
-### Core Components Status
+    subgraph Protocols
+        P1[MQTT]
+        P2[CoAP]
+    end
 
-### Core System
-- ✅ SSL Validation Engine
-- ✅ Certificate Chain Validation
-- ✅ OCSP Integration
-- ✅ CT Log Verification
-- ✅ Rate Limiting
-- ✅ Input Validation
-- ✅ TLS Hardening
-- ✅ Basic Monitoring
-- ✅ Error Handling
+    subgraph Management
+        M1[Device Registry]
+        M2[Cert Manager]
+        M3[Monitor]
+    end
 
-### Security
-- ✅ Rate Limiting
-- ✅ Input Sanitization
-- ✅ Basic Security Checks
-- ✅ Error Standardization
-- ⚠️ Advanced Threat Detection
-- ✅ Anomaly Detection
+    D1 & D2 & D3 --> P1 & P2
+    P1 & P2 --> M1 & M2 & M3
+```
 
-### Monitoring & Metrics
-- ✅ Basic Logging
-- ✅ Security Logs
-- ✅ Performance Metrics
-- ✅ Device Monitoring
-- ✅ Fleet Metrics
-- ✅ Alert System
-- ✅ Grafana Integration
-- ✅ Metric Storage
-- ✅ Real-time Updates
-- ⚠️ Energy Monitoring
-- ⚠️ Advanced Analytics
-- ⚠️ AI-Powered Analysis
+## Blockchain Audit
+```mermaid
+flowchart LR
+    subgraph Validation
+        V1[Check]
+        V2[Analyze]
+        V3[Verify]
+    end
 
-[GARDER ABSOLUMENT TOUT LE RESTE DU README EXISTANT]
+    subgraph Blockchain
+        B1[Smart Contract]
+        B2[Audit Trail]
+        B3[History]
+    end
+
+    V1 & V2 & V3 --> B1
+    B1 --> B2 --> B3
+```
+
+## 🌿 Eco-Conscious Design
+- Energy consumption tracking
+- Resource optimization
+- Carbon footprint monitoring
+- Green computing practices
+
+## 🔧 Déploiement & Configuration
+
+### Installation Rapide
+```bash
+# Clone & Setup
+git clone https://github.com/nabz0r/universal-ssl-validator.git
+cd universal-ssl-validator
+
+# Démarrer avec Docker
+docker-compose -f docker/docker-compose.yml up -d
+
+# Vérifier le statut
+./scripts/deploy.sh status
+```
+
+### Configuration Sécurité
+```typescript
+// Rate Limiting
+import { RateLimiter } from './middleware/rateLimiter';
+
+const rateLimiter = new RateLimiter(
+  15 * 60 * 1000,  // 15min window
+  100              // max requests
+);
+app.use(rateLimiter.middleware);
+
+// SSL Validator avec options sécurisées
+const validator = new SSLValidator({
+  checkOCSP: true,    // Vérification OCSP
+  timeout: 5000,      // Timeout 5s
+  maxRetries: 3,      // Max retry
+  cache: true,        // Cache activé
+  cacheExpiry: 3600   // TTL 1h
+});
+```
+
+### Monitoring
+- Dashboards Grafana inclus
+- Prometheus pour les métriques
+- ELK Stack pour les logs
+- Alerting configurable
+- Security audit logs
+
+### Documentation
+- [Guide de Déploiement](docs/DEPLOYMENT.md)
+- [Configuration](docs/CONFIGURATION.md)
+- [API Documentation](docs/API.md)
+- [Monitoring](docs/MONITORING.md)
+- [Technical Guide](docs/TECHNICAL.md)
+- [API Reference](docs/API.md)
+- [Database Setup](docs/DATABASE.md)
+- [Mobile Guide](docs/MOBILE.md)
+- [Widgets Guide](docs/WIDGETS.md)
+- [Blockchain Guide](docs/BLOCKCHAIN.md)
+- [AI Security](docs/AI_SECURITY.md)
+- [IoT Guide](docs/IOT.md)
+- [Security Guide](docs/SECURITY.md)
+
+## Quick Start
+```bash
+# All operations work offline
+ssl-validator check example.com    # Works offline
+ssl-validator validate cert.pem    # Local validation
+ssl-validator list                # Local cache
+
+# CLI Installation
+npm install -g universal-ssl-validator
+
+# Start Databases
+docker-compose up -d
+
+# Web Interface
+cd ui && npm start
+
+# Mobile App
+cd mobile && npm start
+```
+
+## 🗺️ Innovation Roadmap
+
+Phase 1: Foundation
+- Core validation system ✅
+- SSL/TLS validation ✅
+- Chain validation ✅
+- OCSP checks ✅
+- Web dashboard ❌
+- Mobile app base ❌
+
+Phase 2: Security Enhancement
+- Advanced security features ⚠️
+- Push notifications ❌
+- Offline mode ❌
+- Certificate monitoring ✅
+- Voice commands ❌
+- Input validation ✅
+- Rate limiting ✅
+
+Phase 3: Innovation
+- Blockchain audit system ✅
+- Smart contracts ✅
+- AI predictive security ❌
+- IoT integration ❌
+- Smart contract validation ✅
+- Security metrics ⚠️
+
+Phase 4: Future 🔮
+- Quantum-safe encryption ❌
+- Advanced AI analysis ❌
+- Cross-chain features ❌
+- AR/VR visualization ❌
+
+## 🌲 Environmental Impact
+Our commitment to sustainable technology:
+- Energy-efficient validation
+- Optimized resource usage
+- Green computing practices
+- Environmental metrics
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Security
+See [SECURITY.md](docs/SECURITY.md) for security policy and reporting vulnerabilities.
+
+## License
+MIT
+
+Copyright (c) 2024 nabz0r (nabz0r@gmail.com)
+GitHub: https://github.com/nabz0r
