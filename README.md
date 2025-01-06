@@ -220,35 +220,52 @@ cd mobile && npm start
 Phase 1: Foundation
 
 Core validation system ✅
+
 SSL/TLS validation ✅
+
 Chain validation ✅
+
 OCSP checks ✅
+
 Web dashboard ⚠️ (base fonctionnelle mais UI à améliorer)
+
 Mobile app base ❌
 
 Phase 2: Security Enhancement
 
 Advanced security features ⚠️
+
 Push notifications ❌
+
 Offline mode ❌
+
 Certificate monitoring ✅
+
 Voice commands ❌
 
 Phase 3: Innovation
 
 Blockchain audit system ✅
+
 Smart contracts ✅
+
 AI predictive security ❌
+
 IoT integration ⚠️
+
 Smart contract validation ✅
+
 Security metrics ✅
 
 Phase 4: Future 🔮
 
-Quantum-safe encryption
-Advanced AI analysis
-Cross-chain features
-AR/VR visualization
+Quantum-safe encryption ❌
+
+Advanced AI analysis ❌
+
+Cross-chain features ❌
+
+AR/VR visualization ❌
 
 Completed Core Features:
 
