@@ -3,129 +3,146 @@
 ## Vue d'ensemble
 Intégration des appareils IoT pour la gestion et la validation des certificats SSL.
 
-## Fonctionnalités
-### Gestion des Appareils
-- Découverte automatique
-- Configuration à distance
-- Mise à jour des certificats
-- Surveillance en temps réel
-- Gestion d'état avancée
+## Protocol Adapters
 
 ### Protocoles Supportés
 - MQTT
   - Pub/Sub messaging
-  - QoS configurable
-  - Authentification TLS
-  - Persistence des messages
+  - QoS configurable (0,1,2)
+  - TLS/SSL sécurisé
+  - Authentification
+  - Keep-alive
+  - Clean session
+  - Last Will Testament
 
 - CoAP
-  - Communication légère
-  - Mode observe
-  - Réponses asynchrones
-  - Support multicast
+  - Communication UDP légère
+  - Observe pattern
+  - Découverte de ressources
+  - DTLS sécurisé
+  - Multicast support
+  - Block-wise transfer
 
-## Architecture
-```mermaid
-graph TD
-    A[Appareils IoT] --> B[Protocol Adapters]
-    B --> C[IoT Manager]
-    C --> D[Certificate Manager]
-    D --> E[Validation Engine]
-    
-    subgraph Protocol Adapters
-        B1[MQTT Adapter]
-        B2[CoAP Adapter]
-    end
+### Configuration
 
-    subgraph Device Management
-        C1[Device Registry]
-        C2[Status Monitor]
-        C3[Command Handler]
-    end
-```
-
-## Implementation
-
-### Firmware Template
-```cpp
-// Exemple d'utilisation du firmware
-void setup() {
-  // Configuration WiFi & MQTT
-  setupWiFi();
-  setupMQTT();
-
-  // Chargement du certificat
-  loadCertificate();
-}
-
-void loop() {
-  // Gestion des connexions
-  handleConnections();
-
-  // Vérification des certificats
-  checkCertificates();
-
-  // Envoi des statuts
-  sendStatus();
-}
-```
-
-### Service Integration
 ```typescript
-// Exemple d'intégration du service IoT
-const iot = new IoTManager('mqtt://broker');
+// Configuration MQTT
+const mqttConfig: AdapterConfig = {
+  host: 'broker.example.com',
+  port: 8883,
+  clientId: 'device-001',
+  tls: {
+    cert: fs.readFileSync('cert.pem'),
+    key: fs.readFileSync('key.pem'),
+    ca: [fs.readFileSync('ca.pem')],
+    rejectUnauthorized: true
+  }
+};
 
-// Enregistrer un appareil
-await iot.registerDevice({
+// Configuration CoAP
+const coapConfig: AdapterConfig = {
+  host: 'coap.example.com',
+  port: 5684,
+  clientId: 'device-002',
+  tls: {
+    cert: fs.readFileSync('cert.pem'),
+    key: fs.readFileSync('key.pem')
+  }
+};
+```
+
+### Device Registry
+
+```typescript
+// Enregistrement device
+const device = await registry.register({
   id: 'device-001',
-  name: 'Sensor 1',
-  type: 'sensor'
+  type: 'sensor',
+  protocols: ['mqtt'],
+  certificates: {
+    device: 'device-cert.pem',
+    ca: 'ca-cert.pem'
+  }
 });
 
-// Mettre à jour un certificat
-await iot.updateCertificate('device-001', certificateData);
+// Monitoring device
+device.on('status', (status) => {
+  console.log('Device status:', status);
+});
+
+device.on('cert-expiring', (days) => {
+  console.log(`Certificate expires in ${days} days`);
+});
 ```
 
 ## Sécurité
-- Authentification mutuelle TLS
+
+### Authentification
+- Mutual TLS obligatoire
+- Rotation automatique certificats
+- Vérification origine device
+- Blacklist devices compromis
+
+### Chiffrement
+- TLS 1.3 minimum
 - Chiffrement bout-en-bout
-- Rotation automatique des certificats
-- Surveillance d'accès
-- Protection contre les attaques DoS
+- Perfect Forward Secrecy
+- Cipher suites sécurisées
 
-## Tests
-```bash
-# Tests unitaires
-npm run test:iot
+### Monitoring
+- Détection anomalies
+- Alertes intrusion
+- Logs sécurité
+- Audit trail
 
-# Tests d'intégration
-npm run test:iot:integration
+## Métriques
 
-# Tests de protocoles
-npm run test:iot:protocols
+### Device Stats
+```typescript
+metrics.gauge('devices_connected', registry.connectedCount());
+metrics.gauge('devices_registered', registry.totalCount());
+metrics.gauge('cert_days_remaining', device.certValidDays());
 ```
 
-## Surveillance
-- Métriques des appareils
-- Statuts de connexion
-- Santé des certificats
-- Performance réseau
-- Utilisation ressources
+### Protocoles
+```typescript
+metrics.counter('mqtt_messages_received');
+metrics.counter('mqtt_messages_sent');
+metrics.histogram('mqtt_message_size');
+metrics.gauge('mqtt_connection_errors');
+```
+
+### API
+```typescript
+metrics.histogram('api_request_duration');
+metrics.counter('api_requests_total');
+metrics.gauge('api_errors_total');
+```
 
 ## Configuration
-```env
-# Configuration générale
-MQTT_BROKER_URL=mqtt://...
-COAP_PORT=5683
-DEVICE_UPDATE_INTERVAL=3600
-MAX_DEVICES=1000
+```yaml
+iot:
+  mqtt:
+    port: 8883 
+    persistence: true
+    qos: 1
+    keepalive: 60
 
-# Sécurité
-SSL_CERT_PATH=/path/to/cert
-SSL_KEY_PATH=/path/to/key
-TLS_VERSION=1.3
+  coap:
+    port: 5684
+    multicast: true
+    blockSize: 1024
 
-# Surveillance
-METRICS_INTERVAL=60
-HEALTH_CHECK_INTERVAL=300
+  security:
+    tls:
+      minVersion: TLSv1.3
+      cipherSuites:
+        - TLS_AES_256_GCM_SHA384
+        - TLS_CHACHA20_POLY1305_SHA256
+      certRotation: 30 # days
+
+  monitoring:
+    metricsInterval: 60
+    anomalyDetection: true
+    retentionDays: 90
 ```
