@@ -55,6 +55,9 @@ flowchart LR
 - Predictive security alerts
 - Voice command security
 - Blockchain auditing
+- Rate limiting & DDoS protection
+- Input validation & sanitization
+- Standardized error handling
 
 ### 📉 Data & Analytics
 - TimescaleDB for time-series data
@@ -150,11 +153,33 @@ docker-compose -f docker/docker-compose.yml up -d
 ./scripts/deploy.sh status
 ```
 
+### Configuration Sécurité
+```typescript
+// Rate Limiting
+import { RateLimiter } from './middleware/rateLimiter';
+
+const rateLimiter = new RateLimiter(
+  15 * 60 * 1000,  // 15min window
+  100              // max requests
+);
+app.use(rateLimiter.middleware);
+
+// SSL Validator avec options sécurisées
+const validator = new SSLValidator({
+  checkOCSP: true,    // Vérification OCSP
+  timeout: 5000,      // Timeout 5s
+  maxRetries: 3,      // Max retry
+  cache: true,        // Cache activé
+  cacheExpiry: 3600   // TTL 1h
+});
+```
+
 ### Monitoring
 - Dashboards Grafana inclus
 - Prometheus pour les métriques
 - ELK Stack pour les logs
 - Alerting configurable
+- Security audit logs
 
 ### Documentation
 - [Guide de Déploiement](docs/DEPLOYMENT.md)
@@ -169,6 +194,7 @@ docker-compose -f docker/docker-compose.yml up -d
 - [Blockchain Guide](docs/BLOCKCHAIN.md)
 - [AI Security](docs/AI_SECURITY.md)
 - [IoT Guide](docs/IOT.md)
+- [Security Guide](docs/SECURITY.md)
 
 ## Quick Start
 ```bash
@@ -222,12 +248,16 @@ Phase 4: Future (Planned 🔮)
 - ✅ AI Analysis
 - ✅ Energy Monitoring
 - ✅ Multi-provider Support
+- ✅ Rate Limiting
+- ✅ Input Validation
+- ✅ TLS Hardening
 
 ### Web Dashboard
 - ✅ Real-time Monitoring
 - ✅ Analytics Dashboard
 - ✅ Certificate Management
 - ✅ Advanced Reports
+- ✅ Security Logs
 
 ### Mobile App
 - ✅ Certificate Scanning
@@ -263,6 +293,9 @@ Our commitment to sustainable technology:
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Security
+See [SECURITY.md](docs/SECURITY.md) for security policy and reporting vulnerabilities.
 
 ## License
 MIT
