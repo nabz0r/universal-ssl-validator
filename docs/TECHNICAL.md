@@ -1,226 +1,124 @@
-# Technical Documentation
+# Guide Technique
 
-## Core Components
+## Architecture
 
-### SSL Validator
+Le validateur SSL universel est construit sur une architecture modulaire avec les composants suivants :
 
-The core validator consists of several key components:
+### Core Validator
+- Validation complète des certificats SSL/TLS
+- Vérification OCSP en temps réel
+- Validation de la chaîne de certification
+- Support Certificate Transparency (CT)
 
-```mermaid
-flowchart TD
-    A[Domain Input] --> B[Validation]
-    B --> C{Cache Check}
-    C -->|Hit| D[Return Cached]
-    C -->|Miss| E[Fetch Certificate]
-    E --> F[Validate Chain]
-    F --> G[Check OCSP]
-    G --> H[Security Analysis]
-    H --> I[Cache Result]
-    I --> J[Return Result]
+### Système de Monitoring
+- Métriques Prometheus intégrées
+- Système d'alertes configurable
+- Tracking des erreurs et anomalies
+- Surveillance des expirations
+
+### Sécurité
+- Rate limiting intelligent
+- Validation d'entrées stricte
+- Audit blockchain
+- Protection contre les attaques
+
+## Métriques Disponibles
+
+### Validation SSL
+- `ssl_validations_total` : Nombre total de validations
+- `ssl_validation_duration_seconds` : Durée des validations
+- `ssl_ocsp_latency_seconds` : Latence des vérifications OCSP
+- `ssl_cert_expiry_days` : Jours avant expiration
+- `ssl_chain_length` : Longueur des chaînes de certification
+
+### Performance
+- Histogrammes de latence
+- Compteurs d'erreurs
+- Métriques de cache
+
+## Systèmes d'Alerte
+
+### Alertes Configurées
+- Expiration de certificats (30 jours par défaut)
+- Erreurs de validation répétées
+- Anomalies de sécurité
+- Problèmes de performances
+
+## APIs et Intégrations
+
+### REST API
+```
+GET /validate/{domain}
+POST /validate/bulk
+GET /metrics
+GET /health
 ```
 
-### Validation Process
+### WebSocket API
+- Notifications en temps réel
+- Streaming de métriques
+- Alertes instantanées
 
-1. Domain Validation
-   - Format checking
-   - DNS resolution
-   - Input sanitization
+## Déploiement
 
-2. Certificate Chain Verification
-   - Leaf certificate validation
-   - Intermediate certificates
-   - Root certificate trust
+### Prérequis
+- Node.js >= 18
+- Redis
+- MongoDB
+- TimescaleDB
 
-3. OCSP Checking
-   - Real-time revocation status
-   - Response validation
-   - Caching strategy
-
-4. Security Analysis
-   - Key usage validation
-   - Algorithm strength
-   - Expiration dates
-
-## Performance Optimizations
-
-### Caching Strategy
-
-```typescript
-interface CacheEntry<T> {
-  value: T;
-  expiry: number;
-}
-
-class Cache {
-  private store: Map<string, CacheEntry<any>>;
-  private ttl: number;
-
-  set(key: string, value: any): void
-  get(key: string): any
-  clear(): void
-}
+### Configuration
+```yaml
+validator:
+  ocsp:
+    enabled: true
+    timeout: 5000
+  ct:
+    enabled: true
+    minLogs: 2
+  monitoring:
+    enabled: true
+    retention: 30d
 ```
 
-### Metrics Collection
+### Haute Disponibilité
+- Support cluster Node.js
+- Réplication Redis
+- Failover automatique
 
-```typescript
-class Metrics {
-  private counts: Map<string, number>;
-  private timings: Map<string, number[]>;
+## Sécurité
 
-  incrementCount(metric: string): void
-  recordTiming(metric: string, duration: number): void
-  getMetrics(): object
-  clear(): void
-}
-```
+### Protections
+- Rate limiting par IP/utilisateur
+- Validation des entrées
+- Sanitization des données
+- Protection DDoS
 
-## Error Handling
+### Audit
+- Logs sécurisés
+- Audit trail blockchain
+- Métriques de sécurité
 
-### Error Categories
+## Dépannage
 
-1. Input Validation Errors
-   - Invalid domain format
-   - DNS resolution failures
+### Logs
+- Logs structurés JSON
+- Niveaux de log configurables
+- Rotation automatique
 
-2. Network Errors
-   - Connection timeouts
-   - SSL/TLS errors
-   - OCSP service failures
+### Debug
+- Mode debug détaillé
+- Traces de validation
+- Métriques détaillées
 
-3. Certificate Errors
-   - Parsing failures
-   - Chain validation errors
-   - Revocation status issues
+## Maintenance
 
-4. System Errors
-   - Resource exhaustion
-   - Configuration issues
-   - Internal processing errors
+### Backups
+- Sauvegarde des données
+- Export des métriques
+- Restauration testée
 
-### Error Format
-
-```typescript
-interface ValidationError extends Error {
-  code: string;     // Standardized error code
-  details?: any;    // Additional error context
-}
-```
-
-## Configuration
-
-### Security Levels
-
-```typescript
-type SecurityLevel = 'basic' | 'standard' | 'high';
-
-interface SecurityConfig {
-  minKeySize: number;
-  allowedAlgorithms: string[];
-  requiredKeyUsage: string[];
-  ocspRequired: boolean;
-  maxCertAge: number;
-}
-
-const securityConfigs: Record<SecurityLevel, SecurityConfig> = {
-  basic: {
-    minKeySize: 2048,
-    allowedAlgorithms: ['RSA', 'ECDSA'],
-    requiredKeyUsage: ['digitalSignature'],
-    ocspRequired: false,
-    maxCertAge: 398, // 13 months
-  },
-  standard: {
-    minKeySize: 2048,
-    allowedAlgorithms: ['RSA', 'ECDSA'],
-    requiredKeyUsage: ['digitalSignature', 'keyEncipherment'],
-    ocspRequired: true,
-    maxCertAge: 398, // 13 months
-  },
-  high: {
-    minKeySize: 4096,
-    allowedAlgorithms: ['ECDSA'],
-    requiredKeyUsage: ['digitalSignature', 'keyEncipherment'],
-    ocspRequired: true,
-    maxCertAge: 90, // 3 months
-  },
-};
-```
-
-## Development Guidelines
-
-### Code Organization
-
-```
-src/
-├── core/           # Core validation logic
-├── utils/          # Helper utilities
-├── api/            # API endpoints
-├── types/          # TypeScript definitions
-└── config/         # Configuration files
-```
-
-### Testing Strategy
-
-1. Unit Tests
-   - Individual component testing
-   - Mocked dependencies
-   - Edge case coverage
-
-2. Integration Tests
-   - End-to-end validation flows
-   - Real certificate testing
-   - Network interaction testing
-
-3. Performance Tests
-   - Load testing
-   - Concurrency handling
-   - Resource utilization
-
-### Monitoring
-
-1. Performance Metrics
-   - Validation latency
-   - Cache hit rates
-   - Error rates
-
-2. Resource Usage
-   - Memory consumption
-   - CPU utilization
-   - Network bandwidth
-
-3. Error Tracking
-   - Error frequencies
-   - Error patterns
-   - Resolution times
-
-## Security Considerations
-
-### Certificate Validation
-
-1. Chain Validation
-   - Complete chain verification
-   - Root certificate trust
-   - Intermediate certificate validity
-
-2. Key Usage Verification
-   - Required key usages
-   - Extended key usage
-   - Key constraints
-
-3. Algorithm Security
-   - Minimum key sizes
-   - Allowed algorithms
-   - Signature verification
-
-### OCSP Checking
-
-1. Response Validation
-   - Signature verification
-   - Timestamp validation
-   - Nonce checking
-
-2. Caching Strategy
-   - TTL management
-   - Stapling support
-   - Refresh policies
+### Mise à jour
+- Mise à jour sans interruption
+- Rollback automatique
+- Tests de régression
