@@ -217,101 +217,79 @@ cd mobile && npm start
 ```
 
 ## 🗺️ Innovation Roadmap
+
 Phase 1: Foundation
-
-Core validation system ✅
-
-SSL/TLS validation ✅
-
-Chain validation ✅
-
-OCSP checks ✅
-
-Web dashboard ⚠️ (base fonctionnelle mais UI à améliorer)
-
-Mobile app base ❌
+- Core validation system ✅ (validé dans src/core/validator.ts)
+- SSL/TLS validation ✅ (validé dans src/core)
+- Chain validation ✅ (validé dans src/core/checks.ts)
+- OCSP checks ✅ (validé dans src/core)
+- Web dashboard ❌ (dépendances présentes mais pas de code)
+- Mobile app base ❌ (dépendances présentes mais pas de code)
 
 Phase 2: Security Enhancement
-
-Advanced security features ⚠️
-
-Push notifications ❌
-
-Offline mode ❌
-
-Certificate monitoring ✅
-
-Voice commands ❌
+- Advanced security features ⚠️ (rate limiting ok, reste à implémenter)
+- Push notifications ❌
+- Offline mode ❌
+- Certificate monitoring ⚠️ (monitoring de base présent)
+- Voice commands ❌
 
 Phase 3: Innovation
-
-Blockchain audit system ✅
-
-Smart contracts ✅
-
-AI predictive security ❌
-
-IoT integration ⚠️
-
-Smart contract validation ✅
-
-Security metrics ✅
+- Blockchain audit system ✅ (validé dans src/blockchain/audit.ts)
+- Smart contracts ✅ (implémenté dans blockchain)
+- AI predictive security ❌
+- IoT integration ⚠️ (structure de base présente)
+- Smart contract validation ✅
+- Security metrics ⚠️ (métriques de base implémentées)
 
 Phase 4: Future 🔮
-
-Quantum-safe encryption ❌
-
-Advanced AI analysis ❌
-
-Cross-chain features ❌
-
-AR/VR visualization ❌
+- Quantum-safe encryption ❌
+- Advanced AI analysis ❌
+- Cross-chain features ❌
+- AR/VR visualization ❌
 
 Completed Core Features:
-
-SSL Validation Engine ✅
-Certificate Chain Validation ✅
-OCSP Integration ✅
-Blockchain Auditing ✅
-Rate Limiting ✅
-Input Validation ✅
-Basic Monitoring ✅
+- SSL Validation Engine ✅
+- Certificate Chain Validation ✅
+- OCSP Integration ✅
+- Blockchain Auditing ✅
+- Rate Limiting ✅
+- Input Validation ✅
+- Basic Monitoring ⚠️
 
 In Progress:
-
-AI Analysis ❌
-Energy Monitoring ⚠️
-Multi-provider Support ⚠️
-Real-time Dashboard ⚠️
-Analytics System ❌
+- AI Analysis ❌
+- Energy Monitoring ⚠️ (implémenté dans energy-monitor.ts)
+- Multi-provider Support ⚠️ (Let's Encrypt + GoDaddy partiellement implémentés)
+- Real-time Dashboard ❌
+- Analytics System ❌
 
 IoT Features:
-
-MQTT Support ✅
-CoAP Support ✅
-Device Registry ⚠️
-Firmware Updates ❌
-Fleet Management ❌
+- MQTT Support ⚠️ (structure présente)
+- CoAP Support ⚠️ (structure présente)
+- Device Registry ❌
+- Firmware Updates ❌
+- Fleet Management ❌
 
 ## Features Status
+
 ### Core System
 - ✅ SSL Validation
 - ✅ Certificate Chain Validation
 - ✅ OCSP Checking
-- ⚠️ CT Log Verification
+- ❌ CT Log Verification
 - ✅ Rate Limiting
 - ✅ Input Validation
 - ✅ TLS Hardening
 
 ### Web Dashboard
-- ⚠️ Real-time Monitoring
+- ❌ Real-time Monitoring
 - ❌ Analytics Dashboard
-- ⚠️ Certificate Management
+- ❌ Certificate Management
 - ❌ Advanced Reports
-- ✅ Security Logs
+- ⚠️ Security Logs
 
 ### Mobile App
-- ⚠️ Certificate Scanning
+- ❌ Certificate Scanning
 - ❌ Push Notifications
 - ❌ Offline Mode
 - ❌ Widgets
@@ -325,14 +303,14 @@ Fleet Management ❌
 
 ### IoT Integration
 - ⚠️ Device Management
-- ✅ MQTT Support
-- ✅ CoAP Support
+- ⚠️ MQTT Support
+- ⚠️ CoAP Support
 - ❌ Firmware Updates
 
 ### Database & Analytics
-- ✅ TimescaleDB Integration
-- ✅ MongoDB Analytics
-- ✅ Redis Caching
+- ⚠️ TimescaleDB Integration (dépendance présente, partiellement implémenté)
+- ⚠️ MongoDB Analytics (dépendance présente, partiellement implémenté)
+- ⚠️ Redis Caching (implémenté pour rate limiting)
 - ❌ ML Dataset
 
 ## 🌲 Environmental Impact
