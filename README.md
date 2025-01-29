@@ -1,6 +1,8 @@
 # 🛡️ Universal SSL Validator
 > Next-generation SSL certificate management with AI-powered security and eco-conscious features
 > 
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-nabz0r-yellow?style=for-the-badge&logo=buymeacoffee&logoColor=white)](https://buymeacoffee.com/nabz0r)
+
 ## 🌟 Vision
 Transforming SSL certificate management through AI innovation, blockchain security, and environmental responsibility.
 
